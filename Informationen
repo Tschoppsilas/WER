@@ -1,0 +1,3 @@
+itertools.product: Erstellt alle möglichen Kombinationen von Kartenfarben und Münzwurfergebnissen.
+
+comb(n, k) berechnet das (n über k)
