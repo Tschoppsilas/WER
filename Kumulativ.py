@@ -7,4 +7,4 @@ def Kumulativ():
     # Wahrscheinlichkeit für X >= 7
     p_x_ge_Wert = 1 - p_x_le_Wert_minus1
 
-    print(f"Wahrscheinlichkeit, dass die Münze mindestens 7 Mal auf Kopf landet:{p_x_ge_Wert * 100:.2f}%")
+    print(f"Wahrscheinlichkeit ist:{p_x_ge_Wert * 100:.2f}%")

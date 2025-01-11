@@ -76,7 +76,7 @@ def normal_verteilung_berechnen():
     # Ausgabe des Erwartungswerts und der Varianz, die mit der Dichte berechnet wurden
     print(f"Erwartungswert (E[X] aus Dichte): {round(E_x,2)}")
     print(f"Varianz (Var[X] aus Dichte): {round(var_x,2)}")
-    print(f"Warscheinlichkeit: {round(p_wahrscheinlichkeit,2)}")
+    print(f"Warscheinlichkeit: {round((p_wahrscheinlichkeit * 100),2)}%")
     print(f"Quantil: {round(quantil,2)}")
     print(f"standardisierte Warscheinlichkeit: {round(p_standardisierung,2)}")
     # Visualisierung der Dichtefunktion
