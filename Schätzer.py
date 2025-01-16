@@ -28,11 +28,11 @@ def schätzung(daten=None, mittelwert=None, std_abw=None):
         erfolgswahrscheinlichkeit = None
 
     # Ausgabe der Punktschätzung
-    print(f"Erwartungswert (Mittelwert der Daten): {erwartungswert}")
-    print(f"Standardabweichung: {std_abw}")
-    print(f"Standardfehler: {std_error}")
+    print(f"Erwartungswert (Mittelwert der Daten): {round(erwartungswert,2)}")
+    print(f"Standardabweichung: {round(std_abw,2)}")
+    print(f"Standardfehler: {round(std_error,2)}")
     if erfolgswahrscheinlichkeit is not None:
-        print(f"Erfolgswahrscheinlichkeit: {erfolgswahrscheinlichkeit}")
+        print(f"Erfolgswahrscheinlichkeit: {round(erfolgswahrscheinlichkeit,2)}")
     else:
         print("Die Erfolgswahrscheinlichkeit kann nur für binäre Daten berechnet werden (0 und 1).")
 
@@ -47,13 +47,13 @@ def schätzung(daten=None, mittelwert=None, std_abw=None):
     untergrenze = erwartungswert - intervall
     obergrenze = erwartungswert + intervall
 
-    print(f"{konfidenz * 100} % Konfidenzintervall: ({untergrenze}, {obergrenze})")
+    print(f"{konfidenz * 100} % Konfidenzintervall: ({round(untergrenze,2)}, {round(obergrenze,2)})")
 
     if daten is not None:
         # Maximum Likelihood Schätzung für Mittelwert und Standardabweichung
         mu_mle = np.mean(daten)
         sigma_mle = np.std(daten, ddof=0)  # MLE für die Standardabweichung
-        print(f"Maximum Likelihood Schätzung für den Mittelwert (mu): {mu_mle}")
-        print(f"Maximum Likelihood Schätzung für die Standardabweichung (sigma): {sigma_mle}")
+        print(f"Maximum Likelihood Schätzung für den Mittelwert (mu): {round(mu_mle,2)}")
+        print(f"Maximum Likelihood Schätzung für die Standardabweichung (sigma): {round(sigma_mle,2)}")
     else:
         print("Maximum Likelihood ist nicht möglich, da keine Daten vorhanden sind")
