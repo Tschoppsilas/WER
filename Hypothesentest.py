@@ -55,7 +55,7 @@ def hypothesentests_pruefung():
         print(f"Z-Wert (Prüfgrösse): {z}")
         print(f"P-Wert: {p_value}")
         print(f"Kritische Grenze: ±{z_critical}")
-        print(f"Interpretation: {'H0 ablehnen' if p_value < alpha else 'H0 nicht ablehnen'}")
+        print(f"Interpretation: {'H0 ablehnen. Da der Z-Wert > als der Kritische Wert ist.' if p_value < alpha else 'H0 nicht ablehnen, da der z-Wert < Kritische Wert ist'}")
 
     def t_test():
         print("\nT-Test ausgewählt.")
@@ -64,6 +64,7 @@ def hypothesentests_pruefung():
             "2. Zwei-Stichproben-Test (ungepaart)\n"
             "Wahl (1-2): "))
         alpha = float(input("Signifikanzniveau (α, z.B. 0.05): "))
+        tail_type = int(input("1. Einseitiger Test\n2. Zweiseitiger Test\nWahl (1-2): "))
 
         if test_type == 1:
             mean_sample = float(input("Stichprobenmittelwert: "))
@@ -74,19 +75,36 @@ def hypothesentests_pruefung():
             se = std_dev_sample / np.sqrt(sample_size)
             t = (mean_sample - mean_population) / se
             df = sample_size - 1
-            p_value = 2 * (1 - stats.t.cdf(abs(t), df))
-            t_critical = stats.t.ppf(1 - alpha, df)
-            print(f"T-Wert (Prüfgrösse): {t}")
-            print(f"P-Wert: {p_value}")
-            print(f"Kritische Grenzen: ±{t_critical}")
-            print(f"Interpretation: {'H0 ablehnen' if p_value < alpha else 'H0 nicht ablehnen'}")
+
+            if tail_type == 1:  # Einseitiger Test
+                p_value = 1 - stats.t.cdf(t, df) if t > 0 else stats.t.cdf(t, df)
+                t_critical = stats.t.ppf(1 - alpha, df)
+                print(f"T-Wert (Prüfgrösse): {t}")
+                print(f"P-Wert: {p_value}")
+                print(f"Kritische Grenze: {t_critical}")
+            else:  # Zweiseitiger Test
+                p_value = 2 * (1 - stats.t.cdf(abs(t), df))
+                t_critical = stats.t.ppf(1 - alpha / 2, df)
+                print(f"T-Wert (Prüfgrösse): {t}")
+                print(f"P-Wert: {p_value}")
+                print(f"Kritische Grenzen: ±{t_critical}")
+
+            print(f"Interpretation: {'H0 ablehnen. Da der T-Wert > als der Kritische Wert ist.' if p_value < alpha else 'H0 nicht ablehnen, da der T-Wert < Kritische Wert ist'}")
+
         else:
             sample1 = list(map(float, input("Werte der ersten Stichprobe (kommagetrennt): ").split(',')))
             sample2 = list(map(float, input("Werte der zweiten Stichprobe (kommagetrennt): ").split(',')))
             t, p_value = stats.ttest_ind(sample1, sample2)
-            print(f"T-Wert (Prüfgrösse): {t}")
-            print(f"P-Wert: {p_value}")
-            print(f"Interpretation: {'H0 ablehnen' if p_value < alpha else 'H0 nicht ablehnen'}")
+
+            if tail_type == 1:  # Einseitiger Test
+                p_value /= 2  # Anpassung, da ttest_ind standardmäßig zweiseitig ist
+                print(f"T-Wert (Prüfgrösse): {t}")
+                print(f"P-Wert (einseitig): {p_value}")
+            else:  # Zweiseitiger Test
+                print(f"T-Wert (Prüfgrösse): {t}")
+                print(f"P-Wert (zweiseitig): {p_value}")
+
+            print(f"Interpretation: {'H0 ablehnen. Da der T-Wert > als der Kritische Wert ist.' if p_value < alpha else 'H0 nicht ablehnen, da der T-Wert < Kritische Wert ist'}")
 
     def mann_whitney_u_test():
         print("\nMann-Whitney-U-Test ausgewählt.")
@@ -96,7 +114,7 @@ def hypothesentests_pruefung():
         u_stat, p_value = stats.mannwhitneyu(sample1, sample2, alternative='two-sided')
         print(f"U-Wert (Prüfgrösse): {u_stat}")
         print(f"P-Wert: {p_value}")
-        print(f"Interpretation: {'H0 ablehnen' if p_value < alpha else 'H0 nicht ablehnen'}")
+        print(f"Interpretation: {'H0 ablehnen. Da der U-Wert > als der Kritische Wert ist.' if p_value < alpha else 'H0 nicht ablehnen, da der U-Wert < Kritische Wert ist'}")
 
     def kolmogorov_smirnov_test():
         print("\nKolmogorov-Smirnov-Test ausgewählt.")
@@ -106,7 +124,7 @@ def hypothesentests_pruefung():
         ks_stat, p_value = stats.ks_2samp(sample1, sample2)
         print(f"KS-Wert (Prüfgrösse): {ks_stat}")
         print(f"P-Wert: {p_value}")
-        print(f"Interpretation: {'H0 ablehnen' if p_value < alpha else 'H0 nicht ablehnen'}")
+        print(f"Interpretation: {'H0 ablehnen. Da der KS-Wert > als der Kritische Wert ist.' if p_value < alpha else 'H0 nicht ablehnen, da der KS-Wert < Kritische Wert ist'}")
 
     def main():
         auswahl = auswahl_test()

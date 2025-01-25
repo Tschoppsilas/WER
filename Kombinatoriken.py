@@ -18,12 +18,12 @@ def kombination_variation_permutation():
             ergebnis = math.factorial(n)
             for h in k:
                 ergebnis //= math.factorial(h)
-            print(f"Ergebnis (Permutation mit Wiederholung): {ergebnis}")
+            print(f"Ergebnis (Permutation mit Wiederholung)((n!)/(k1!*k2!*...)): {ergebnis}")
         elif option == "n":
             # Permutation ohne Wiederholung
             n = int(input("Geben Sie die Gesamtzahl der Elemente (n) ein: "))
             ergebnis = math.factorial(n)
-            print(f"Ergebnis (Permutation ohne Wiederholung): {ergebnis}")
+            print(f"Ergebnis (Permutation ohne Wiederholung) (n!): {ergebnis}")
         else:
             print("Ungültige Eingabe. Bitte starten Sie das Programm erneut.")
 
@@ -40,14 +40,14 @@ def kombination_variation_permutation():
             if option == "j":
                 # Kombination mit Wiederholung: (n + k - 1) über k
                 ergebnis = math.comb(n + k - 1, k)
-                print(f"Ergebnis (Kombination mit Wiederholung): {ergebnis}")
+                print(f"Ergebnis (Kombination mit Wiederholung)((n+k-1)nCr(k): {ergebnis}")
             elif option == "n":
                 # Kombination ohne Wiederholung
                 if k > n:
                     print("Fehler: k darf nicht größer als n sein!")
                     return
                 ergebnis = math.comb(n, k)
-                print(f"Ergebnis (Kombination ohne Wiederholung): {ergebnis}")
+                print(f"Ergebnis (Kombination ohne Wiederholung)(n)nCr(k): {ergebnis}")
             else:
                 print("Ungültige Eingabe. Bitte starten Sie das Programm erneut.")
 
@@ -60,14 +60,14 @@ def kombination_variation_permutation():
             if option == "j":
                 # Variation mit Wiederholung: n^k
                 ergebnis = n ** k
-                print(f"Ergebnis (Variation mit Wiederholung): {ergebnis}")
+                print(f"Ergebnis (Variation mit Wiederholung) n^k: {ergebnis}")
             elif option == "n":
                 # Variation ohne Wiederholung: n! / (n - k)!
                 if k > n:
                     print("Fehler: k darf nicht größer als n sein!")
                     return
                 ergebnis = math.perm(n, k)
-                print(f"Ergebnis (Variation ohne Wiederholung): {ergebnis}")
+                print(f"Ergebnis (Variation ohne Wiederholung)(n!/(n-k)!): {ergebnis}")
             else:
                 print("Ungültige Eingabe. Bitte starten Sie das Programm erneut.")
         else:
